@@ -1,14 +1,15 @@
 #include <alsa/asoundlib.h>
+#include <festival/festival.h>
 #include <fstream>  
 #include "Listen.h"
 #include "OperationBase.h"
 #include "Time.h"
-#include "espeak/speak_lib.h"
 
 
 std::string decode();
-void action(std::string);
+std::string action(std::string);
 void recordAudio(int);
+void festival(std::string);
 
 
 Time timeX;
@@ -25,15 +26,15 @@ int main()
 {
 
   std::string outputString;
+  std::string speakString;
 
   while(outputString != "shutdown")
   {
    outputString = decode(); 
 
-   std::cout << outputString << std::endl;
-   getchar();
+   speakString = action(outputString);
 
-   action(outputString);
+   festival(speakString);
   }
 
   std::cout << "Thank you, and goodbye" << std::endl;
@@ -45,7 +46,7 @@ int main()
 	 *
 	 *  Also to minimize processor usage, have to device enter a "sleep mode" during times of low use, such as
 	 *  during sleeping or school hours, or have it only begin recording after a specific gesture.
-     *
+   *
 	 */
 
 
@@ -94,14 +95,17 @@ std::string decode()
 }
 
 
-void action(std::string key) 
+std::string action(std::string key) 
 { 
+  std::string speakString;
+
   if ( myFunc.find(key) == myFunc.end() ) {
-  std::cout << "ERROR: Key not found" << std::endl;
+  speakString = "ERROR: Key not found";
   } else {
-  std::cout << myFunc.find(key)->second.execute() << std::endl;  
+  speakString = myFunc.find(key)->second.execute(); 
   }
 
+  return speakString;
 }
 
 void recordAudio(int len) 
@@ -202,4 +206,18 @@ void recordAudio(int len)
   snd_pcm_drain(handle);
   snd_pcm_close(handle);
   free(buffer);
+}
+
+void festival(std::string speakString)
+{
+    EST_Wave wave;
+    int heap_size = 210000;  // default scheme heap size
+    int load_init_files = 1; // we want the festival init files loaded
+
+    festival_initialize(load_init_files,heap_size);
+
+    // Say some text;
+    festival_say_text(speakString.c_str());
+
+    festival_wait_for_spooler();
 }
