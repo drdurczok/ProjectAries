@@ -12,16 +12,6 @@ void Audio::recordAudio(int len)
 {
   std::ofstream outfile ("audio.raw",std::ofstream::binary);
 
-  long loops;
-  int rc;
-  int size;
-  snd_pcm_t *handle;
-  snd_pcm_hw_params_t *params;
-  unsigned int val;
-  int dir;
-  snd_pcm_uframes_t frames;
-  char *buffer;
-
   /* Open PCM device for recording (capture). */
   rc = snd_pcm_open(&handle, "default", SND_PCM_STREAM_CAPTURE, 0);
   if (rc < 0) 
@@ -110,16 +100,6 @@ void Audio::recordAudio(int len)
 
 void Audio::playback()
 {
-  long loops;
-  int rc;
-  int size;
-  snd_pcm_t *handle;
-  snd_pcm_hw_params_t *params;
-  unsigned int val;
-  int dir;
-  snd_pcm_uframes_t frames;
-  char *buffer;
-
   /* Open PCM device for playback. */
   rc = snd_pcm_open(&handle, "default", SND_PCM_STREAM_PLAYBACK, 0);
   if (rc < 0) 

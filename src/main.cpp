@@ -7,11 +7,6 @@
 
 std::string decode();
 std::string action(std::string);
-void recordAudio(int);
-void init_festival();
-void festival(std::string);
-void playback();
-
 
 Audio audio;
 Time timeX;
@@ -33,9 +28,12 @@ int main()
   {
    outputString = decode(); 
 
-   if(outputString != "shutdown") speakString = action(outputString);
+   if(outputString != "shutdown") 
+    {
+      speakString = action(outputString);
 
-   audio.festival(speakString);
+      audio.festival(speakString);
+    }
   }
 
   audio.festival("Thank you, and goodbye");
@@ -45,8 +43,8 @@ int main()
 	 *  is to create a thread that is always checking for new raw files and creates new threads appropriately
 	 *  to carry out the various commands.
 	 *
-	 *  Also to minimize processor usage, have to device enter a "sleep mode" during times of low use, such as
-	 *  during sleeping or school hours, or have it only begin recording after a specific gesture.
+	 *  Also to minimize processor usage, have the device enter a "sleep mode" during times of low use, such as
+	 *  during sleeping or school hours, or have it only begin recording after a specific gesture, "ok".
    *
 	 */
 
