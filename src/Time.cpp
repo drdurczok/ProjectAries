@@ -179,9 +179,9 @@ std::map<int, std::string> Time::map_day =
       {{0, "thursday"},
        {1, "friday"},
        {2, "saturday"},
-       {3, "sunday"},
+       {5, "sunday"},
        {4, "monday"},
-       {5, "tuesday"},
+       {3, "tuesday"},
        {6, "wednesday"}
       };
 
