@@ -10,7 +10,7 @@ class Audio
 		Audio();
 
 		void recordAudio(int len);
-		void playback();
+		void playback(std::string file);
 		void festival(std::string speakString);
 
 	private:

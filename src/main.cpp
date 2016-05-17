@@ -84,7 +84,9 @@ std::string decode()
 
   listen.unsetKeyphrase();
 
-  audio.recordAudio(5000000);
+  audio.playback("sounds/beep.wav");
+
+  audio.recordAudio(4000000);
   outputString = listen.rawToString(fileLoc.c_str());   //process the .raw file and store the string
   remove ("audio.raw");
 

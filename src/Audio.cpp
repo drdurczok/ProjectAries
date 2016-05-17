@@ -68,10 +68,6 @@ void Audio::recordAudio(int len)
   snd_pcm_hw_params_get_period_time(params, &val, &dir);
   loops = len / val;
 
-  /*file written to */
-  FILE *audio;
-  audio = fopen("audio.raw", "a");
-
   double bytes;
 
   std::cout << "Recording Audio..." << std::endl;
@@ -90,15 +86,17 @@ void Audio::recordAudio(int len)
       fprintf(stderr, "short read, read %d frames\n", rc);
     }
 
-    outfile.write(buffer, size);      
+   outfile.write(buffer, size);      
   }
+
+  outfile.close();
 
   snd_pcm_drain(handle);
   snd_pcm_close(handle);
   free(buffer);
 }
 
-void Audio::playback()
+void Audio::playback(std::string file)
 {
   /* Open PCM device for playback. */
   rc = snd_pcm_open(&handle, "default", SND_PCM_STREAM_PLAYBACK, 0);
@@ -147,24 +145,16 @@ void Audio::playback()
   snd_pcm_hw_params_get_period_size(params, &frames, &dir);
   size = frames * 4; /* 2 bytes/sample, 2 channels */
   buffer = (char *) malloc(size);
+  
+  /* Open file to be read from */
+  std::ifstream infile (file.c_str(), std::ifstream::binary);
+  /* Move to beginning of file */
+  infile.seekg (0, std::ios::beg);
 
-  /* We want to loop for 5 seconds */
-  snd_pcm_hw_params_get_period_time(params, &val, &dir);
-  /* 5 seconds in microseconds divided by
-   * period time */
-  loops = 5000000 / val;
-
-  while (loops > 0) 
+  while (!infile.eof()) 
   {
-    loops--;
-    rc = read(0, buffer, size);
-    if (rc == 0)
-    {
-      fprintf(stderr, "end of file on input\n");
-      break;
-    } else if (rc != size) {
-      fprintf(stderr, "short read: read %d bytes\n", rc);
-    }
+    infile.read(buffer, size);
+   
     rc = snd_pcm_writei(handle, buffer, frames);
     if (rc == -EPIPE) {
       /* EPIPE means underrun */
@@ -176,6 +166,8 @@ void Audio::playback()
       fprintf(stderr, "short write, write %d frames\n", rc);
     }
   }
+
+  infile.close();
 
   snd_pcm_drain(handle);
   snd_pcm_close(handle);

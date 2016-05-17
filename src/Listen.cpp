@@ -35,14 +35,6 @@ int Listen::init() //this will give us access to pocket sphinx's cmd_ln.c interp
 	return 0;
 }
 
-/*
-int Listen::keyphrase()
-{
-	ps_set_keyphrase(ps, "keyphrase_search", "aries");
-	ps_set_search(ps, "keyphrase_search");
-	ps_start_utt();
-}
-*/
 
 //the ability to set the location for the models will allow new models to be composed and replaced with ease
 int Listen::setLMdir(std::string _lmDir)

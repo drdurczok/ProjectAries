@@ -1,13 +1,12 @@
 #include "Time.h"
 
   /*
-  use -std=c++0x when compiling for the maps
-  
-  */
+   *use -std=c++0x when compiling for the maps
+   */
 
 Time::Time()
 {
-  
+   
 }
 
 Time::~Time()
@@ -176,13 +175,13 @@ std::map<int, std::string> Time::map_ordinal =
      };
 
 std::map<int, std::string> Time::map_day =
-      {{0, "thursday"},
-       {1, "friday"},
-       {2, "saturday"},
-       {5, "sunday"},
-       {4, "monday"},
+      {{5, "thursday"}, 
+       {6, "friday"},   //6
+       {0, "saturday"},
+       {1, "sunday"},
+       {2, "monday"},
        {3, "tuesday"},
-       {6, "wednesday"}
+       {4, "wednesday"}
       };
 
 std::map<int, std::string> Time::map_month =
