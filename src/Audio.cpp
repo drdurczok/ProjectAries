@@ -68,8 +68,6 @@ void Audio::recordAudio(int len)
   snd_pcm_hw_params_get_period_time(params, &val, &dir);
   loops = len / val;
 
-  double bytes;
-
   std::cout << "Recording Audio..." << std::endl;
 
   while (loops > 0) {

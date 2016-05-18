@@ -55,8 +55,6 @@ int main()
 
 std::string decode()
 {
-  bool key = 0;
-
   std::string er = "error";
 
   Listen listen;

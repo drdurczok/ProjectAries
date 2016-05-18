@@ -92,6 +92,7 @@ int Listen::updateModel()
 
 	init(); //call init to load the decoder with the new language model.
 
+	return 0;
 }
 
 
