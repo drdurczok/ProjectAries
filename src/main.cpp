@@ -24,6 +24,8 @@ int main()
   std::string outputString;
   std::string speakString;
 
+  audio.playback("sounds/start.wav");
+
   while(outputString != "shutdown")
   {
    outputString = decode(); 

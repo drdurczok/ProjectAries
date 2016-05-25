@@ -22,8 +22,7 @@ class Listen
 		int setKeyphrase();
 		int unsetKeyphrase();
 		std::string rawToString(const char * pathToraw);
-
-    protected:
+		
     private:
         int updateModel();
 
