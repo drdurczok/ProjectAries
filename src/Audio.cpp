@@ -38,14 +38,14 @@ void Audio::recordAudio(int len)
   /* Signed 16-bit little-endian format */
   snd_pcm_hw_params_set_format(handle, params, SND_PCM_FORMAT_S16_LE);
 
-  /* Single channel (monoaural) */
+  /* Single channel (monoaural) 1 and Two channels (stereo) 2*/
   snd_pcm_hw_params_set_channels(handle, params, 2);
 
-  /* 44100 bits/second sampling rate (CD quality) */
+  /* bits/second sampling rate */
   val = 8000;
   snd_pcm_hw_params_set_rate_near(handle, params, &val, &dir);
 
-  /* Set period size to 32 frames. */
+  /* Set period size to x frames. */
   frames = 256;
   snd_pcm_hw_params_set_period_size_near(handle, params, &frames, &dir);
 
@@ -120,7 +120,7 @@ void Audio::playback(std::string file)
   /* Signed 16-bit little-endian format */
   snd_pcm_hw_params_set_format(handle, params, SND_PCM_FORMAT_S16_LE);
 
-  /* Two channels (stereo) */
+  /* Single channel (monoaural) 1 and Two channels (stereo) 2*/
   snd_pcm_hw_params_set_channels(handle, params, 2);
 
   /* 44100 bits/second sampling rate (CD quality) */
@@ -176,6 +176,4 @@ void Audio::festival(std::string speakString)
 {
     // Say some text;
     festival_say_text(speakString.c_str());
-
-    festival_wait_for_spooler();
 }
