@@ -128,7 +128,7 @@ void Audio::playback(std::string file)
   snd_pcm_hw_params_set_rate_near(handle, params, &val, &dir);
 
   /* Set period size to 32 frames. */
-  frames = 32;
+  frames = 1024;
   snd_pcm_hw_params_set_period_size_near(handle, params, &frames, &dir);
 
   /* Write the parameters to the driver */

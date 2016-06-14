@@ -1,4 +1,6 @@
 #JSGF V1.0;
 
 grammar aries;
-public <time> = (time | day | date | shutdown);
+public <time> = (time | day | date | shutdown | explain);
+
+

@@ -2,20 +2,22 @@
 #include "Listen.h"
 #include "Audio.h"
 #include "OperationBase.h"
+#include "UI.h"
 #include "Time.h"
 
 
 std::string decode();
 std::string action(std::string);
 
+Listen listen;
 Audio audio;
-Time timeX;
+UI UIX;
 
 std::map<std::string, OperationBase> myFunc = 		//{key, {pointer to object, member function}}
 	{ 		
-		{"time", {&timeX,(ClassProc)&Time::curTime}},
-		{"day",{&timeX,(ClassProc)&Time::curDay}},
-		{"date",{&timeX,(ClassProc)&Time::curDate}}
+		{"time", {&UIX,(ClassProc)&UI::curTime}},
+		{"day",{&UIX,(ClassProc)&UI::curDay}},
+		{"date",{&UIX,(ClassProc)&UI::curDate}}
 	};
 
 
@@ -24,13 +26,15 @@ int main()
   std::string outputString;
   std::string speakString;
 
-  audio.playback("sounds/start.wav");
+  audio.playback("sounds/beep.wav");
 
   while(outputString != "shutdown")
   {
    outputString = decode(); 
 
-   if(outputString != "shutdown") 
+   if(outputString == "explain") audio.festival("I am a beta version of a software engine that is meant to add voice functionality to other code. My advantage over siri and other such programs is that I specialize in specific vocabulary. This makes me fast, accurate and moduler.");
+
+   else if(outputString != "shutdown") 
     {
       speakString = action(outputString);
 
@@ -58,8 +62,6 @@ int main()
 std::string decode()
 {
   std::string er = "error";
-
-  Listen listen;
 
 	std::string fileLoc = "audio.raw"; 	//this is the location of the file we will be comparing against our langauge model
 

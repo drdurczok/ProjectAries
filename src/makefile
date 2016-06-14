@@ -1,4 +1,4 @@
-OBJS = main.o Listen.o Audio.o OperationBase.o Time.o
+OBJS = main.o Listen.o Audio.o OperationBase.o Time.o UI.o Dictionary.o
 CC = g++ -std=c++0x
 DEBUG = -g
 CFLAGS = -Wall -c $(DEBUG)
@@ -8,7 +8,7 @@ LDFLAGS = -I/usr/local/include/sphinxbase -I/usr/local/include/pocketsphinx -I./
 aries : $(OBJS)
 	$(CC) $(LFLAGS) $(OBJS) -o aries -lasound -lFestival -lestools -lestbase -leststring `pkg-config --cflags --libs pocketsphinx sphinxbase`
 
-main.o: main.cpp Listen.h Audio.h OperationBase.h Time.h
+main.o: main.cpp Listen.h Audio.h OperationBase.h UI.h
 	$(CC) $(CFLAGS) $(LDFLAGS) main.cpp 
 
 Listen.o: Listen.h Listen.cpp
@@ -22,3 +22,9 @@ OperationBase.o: OperationBase.h OperationBase.cpp
 
 Time.o: Time.h Time.cpp
 	$(CC) $(CFLAGS) Time.cpp
+
+UI.o: UI.h UI.cpp Time.h
+	$(CC) $(CFLAGS) UI.cpp
+
+Dictionary.o: Dictionary.h Dictionary.cpp
+	$(CC) $(CFLAGS) Dictionary.cpp
