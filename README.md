@@ -1,2 +1,2 @@
 # ProjectAries
-A lightweight voice controled hub
+A lightweight voice controlled hub
